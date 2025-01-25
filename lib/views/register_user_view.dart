@@ -12,10 +12,10 @@ class RegisterUserView extends StatefulWidget {
 class _RegisterUserViewState extends State<RegisterUserView> {
   insertUser() async {
     var data = {
-      "name": "Ironhead",
-      "email": "Arya@gmail.com",
-      "role": "admin",
-      "password": "12345678",
+      "name": name.text,
+      "email": email.text,
+      "role": role,
+      "password": password.text,
     };
     var result = await UserService().registerUser(data);
     print(result.status);
@@ -24,7 +24,6 @@ class _RegisterUserViewState extends State<RegisterUserView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     insertUser();
   }
