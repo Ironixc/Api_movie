@@ -37,11 +37,11 @@ class UserService {
 
   Future loginUser(data) async {
     var uri = Uri.parse(url.BaseUrl + "/auth/login");
-    var register = await http.post(uri, body: data);
+    var loginUser = await http.post(uri, body: data);
 
 
-    if (register.statusCode == 200) {
-      var data = json.decode(register.body);
+    if (loginUser.statusCode == 200) {
+      var data = json.decode(loginUser.body);
       if (data["status"] == true) {
         UserLogin userLogin = UserLogin(
             status: data["status"],
@@ -64,7 +64,7 @@ class UserService {
       ResponseDataMap response = ResponseDataMap(
           status: false,
           message:
-              "gagal menambah user dengan code error ${register.statusCode}");
+              "gagal menambah user dengan code error ${loginUser.statusCode}");
       return response;
     }
   }

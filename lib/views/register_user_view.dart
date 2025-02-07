@@ -145,7 +145,8 @@ class _RegisterUserViewState extends State<RegisterUserView> {
                             },
                             child: Text("Register"),
                             color: Colors.lightGreen,
-                          )
+                          ),
+                          
                         ],
                       ))
                 ],

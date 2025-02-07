@@ -40,7 +40,5 @@ class UserLogin {
         role: prefs.getString("role")!);
     return userLogin;
   }
-
-
 }
 
