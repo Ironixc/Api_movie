@@ -1,4 +1,3 @@
-import 'package:api_insert/models/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:api_insert/models/user_login.dart';
 
@@ -80,7 +79,7 @@ class _BottomNavState extends State<BottomNav> {
                 items: [
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-  label: 'Home',
+                      label: 'Home',
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.card_giftcard),

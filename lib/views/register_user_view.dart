@@ -137,6 +137,10 @@ class _RegisterUserViewState extends State<RegisterUserView> {
                                   });
                                   AlertMessage()
                                       .showAlert(context, result.message, true);
+                                   Future.delayed(Duration(seconds: 2), () {
+                                Navigator.pushReplacementNamed(
+                                    context, '/login');
+                              });
                                 } else {
                                   AlertMessage().showAlert(
                                       context, result.message, false);
@@ -146,7 +150,6 @@ class _RegisterUserViewState extends State<RegisterUserView> {
                             child: Text("Register"),
                             color: Colors.lightGreen,
                           ),
-                          
                         ],
                       ))
                 ],
