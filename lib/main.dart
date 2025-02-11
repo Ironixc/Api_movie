@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
+    initialRoute: '/login',
     routes: {
       '/': (context) => RegisterUserView(),
       '/login':(context) => LoginView(),
