@@ -1,3 +1,4 @@
+import 'package:api_insert/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,6 +21,7 @@ class _PesanViewState extends State<PesanView> {
         foregroundColor: Colors.white,
       ),
       body: Text("Pesan"),
+      bottomNavigationBar: BottomNav(1),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:api_insert/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,6 +21,8 @@ class _MovieViewState extends State<MovieView> {
         foregroundColor: Colors.white,
       ),
       body: Text("Movie"),
+      bottomNavigationBar: BottomNav(1),
+
     );
   }
 }
