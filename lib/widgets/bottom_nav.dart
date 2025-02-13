@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:api_insert/models/user_login.dart';
 
 
+// ignore: must_be_immutable
 class BottomNav extends StatefulWidget {
   int activePage;
   BottomNav(this.activePage);
