@@ -43,6 +43,13 @@ class _RegisterUserViewState extends State<RegisterUserView> {
         title: Text("Register User"),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/');
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: SingleChildScrollView(
           child: Container(

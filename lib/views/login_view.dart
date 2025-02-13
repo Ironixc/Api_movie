@@ -28,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/register');
               },
               icon: Icon(Icons.add))
         ],
