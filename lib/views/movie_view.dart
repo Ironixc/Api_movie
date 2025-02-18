@@ -43,7 +43,8 @@ class _MovieViewState extends State<MovieView> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TambahMovieView(title: "Tambah Movie", item: null),
+                  builder: (context) =>
+                      TambahMovieView(title: "Tambah Movie", item: null),
                 ),
               );
             },
@@ -61,12 +62,12 @@ class _MovieViewState extends State<MovieView> {
                     var item = film![index];
 
                     return Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: ListTile(
                         leading: item.posterPath != null
-    ? Image.network(
-        item.posterPath!,
-
+                            ? Image.network(
+                                item.posterPath!,
                                 width: 50,
                                 height: 50,
                                 fit: BoxFit.cover,
@@ -74,12 +75,15 @@ class _MovieViewState extends State<MovieView> {
                                     const Icon(Icons.image_not_supported),
                               )
                             : const Icon(Icons.movie, size: 50),
-                        title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        title: Text(item.title,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Rating: ${item.voteAverage}"),
-                            Text(item.overview, maxLines: 2, overflow: TextOverflow.ellipsis),
+                            Text(item.overview,
+                                maxLines: 2, overflow: TextOverflow.ellipsis),
                           ],
                         ),
                         trailing: PopupMenuButton<String>(
@@ -95,15 +99,20 @@ class _MovieViewState extends State<MovieView> {
                                 ),
                               );
                             } else {
-                              var results = await AlertMessage().showAlertDialog(context);
-                              if (results != null && results.containsKey('status')) {
+                              var results =
+                                  await AlertMessage().showAlertDialog(context);
+                              if (results != null &&
+                                  results.containsKey('status')) {
                                 if (results['status'] == true) {
-                                  var res = await movie.hapusMovie(context, item.id);
+                                  var res =
+                                      await movie.hapusMovie(context, item.id);
                                   if (res.status == true) {
-                                    AlertMessage().showAlert(context, res.message, true);
+                                    AlertMessage()
+                                        .showAlert(context, res.message, true);
                                     getflm();
                                   } else {
-                                    AlertMessage().showAlert(context, res.message, false);
+                                    AlertMessage()
+                                        .showAlert(context, res.message, false);
                                   }
                                 }
                               }
