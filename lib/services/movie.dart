@@ -5,6 +5,10 @@ import 'package:api_insert/models/user_login.dart';
 import 'package:api_insert/services/url.dart' as url;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:io' show File;
+import 'package:http_parser/http_parser.dart';
+
 
 class MovieService {
   Future getMovie() async {
@@ -41,62 +45,60 @@ class MovieService {
     }
   }
 
-  Future insertMovie(request, image, id) async {
-    UserLogin userLogin = UserLogin();
-    var user = await userLogin.getUserLogin();
-    if (user.status == false) {
-      ResponseDataList response = ResponseDataList(
-          status: false, message: 'anda belum login / token invalid');
-      return response;
-    }
-    var uri = Uri.parse(url.BaseUrl + "/admin/getmovie");
-    Map<String, String> headers = {
-      "Authorization": 'Bearer ${user.token}',
-      "Content-type": "multipart/form-data",
-    };
-    var reponse;
-    if (id == null) {
-      reponse = http.MultipartRequest(
-        'POST',
-        Uri.parse("${url.BaseUrl}/admin/insertmovie"),
-      );
-    } else {
-      reponse = http.MultipartRequest(
-        'POST',
-        Uri.parse("${url.BaseUrl}/admin/updatemovie/$id"),
-      );
-    }
-    if (image != null) {
-      reponse.files.add(http.MultipartFile(
-          'posterpath', image.readAsBytes().asStream(), image.lengthSync(),
-          filename: image.path.split('/').last));
-    }
-    reponse.headers.addAll(headers);
-    reponse.fields['title'] = request["title"];
-    reponse.fields['voteaverage'] = request["voteaverage"];
-    reponse.fields['overview'] = request["overview"];
+  Future insertMovie(Map<String, dynamic> request, File? image, Uint8List? imageBytes, int? id) async {
+  UserLogin userLogin = UserLogin();
+  var user = await userLogin.getUserLogin();
 
-    var res = await reponse.send();
-    var result = await http.Response.fromStream(res);
-
-    if (res.statusCode == 200) {
-      var data = json.decode(result.body);
-      if (data["status"] == true) {
-        ResponseDataMap response = ResponseDataMap(
-            status: true, message: 'success insert / update data');
-        return response;
-      } else {
-        ResponseDataMap response = ResponseDataMap(
-            status: false, message: 'Failed insert / update data');
-        return response;
-      }
-    } else {
-      ResponseDataMap response = ResponseDataMap(
-          status: false,
-          message: "gagal load movie dengan code error ${res.statusCode}");
-      return response;
-    }
+  if (user.status == false) {
+    return ResponseDataList(status: false, message: 'Anda belum login / token invalid');
   }
+
+  var uri = id == null
+      ? Uri.parse("${url.BaseUrl}/admin/insertmovie")
+      : Uri.parse("${url.BaseUrl}/admin/updatemovie/$id");
+
+  var requestUpload = http.MultipartRequest('POST', uri);
+  requestUpload.headers["Authorization"] = 'Bearer ${user.token}';
+  requestUpload.fields['title'] = request["title"];
+  requestUpload.fields['voteaverage'] = request["voteaverage"];
+  requestUpload.fields['overview'] = request["overview"];
+
+  if (imageBytes != null) {
+    // Untuk Web
+    requestUpload.files.add(
+      http.MultipartFile.fromBytes(
+        'posterpath',
+        imageBytes,
+        filename: "upload.jpg",
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    );
+  } else if (image != null) {
+    // Untuk Mobile & Desktop
+    requestUpload.files.add(
+      http.MultipartFile(
+        'posterpath',
+        image.readAsBytes().asStream(),
+        image.lengthSync(),
+        filename: image.path.split('/').last,
+      ),
+    );
+  }
+
+  var response = await requestUpload.send();
+  var result = await http.Response.fromStream(response);
+
+  if (response.statusCode == 200) {
+    var data = json.decode(result.body);
+    return data["status"] == true
+        ? ResponseDataMap(status: true, message: 'Success insert / update data')
+        : ResponseDataMap(status: false, message: 'Failed insert / update data');
+  } else {
+    return ResponseDataMap(
+        status: false, message: "Gagal upload movie dengan code error ${response.statusCode}");
+  }
+}
+
 
   Future hapusMovie(context, id) async {
     UserLogin userLogin = UserLogin();

@@ -46,7 +46,7 @@ class _RegisterUserViewState extends State<RegisterUserView> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, '/login');
               },
               icon: Icon(Icons.add))
         ],
