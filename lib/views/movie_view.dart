@@ -65,7 +65,8 @@ class _MovieViewState extends State<MovieView> {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       child: ListTile(
-                        leading: item.posterPath != null
+                        leading: item.posterPath != null &&
+                                item.posterPath!.isNotEmpty
                             ? Image.network(
                                 item.posterPath!,
                                 width: 50,
