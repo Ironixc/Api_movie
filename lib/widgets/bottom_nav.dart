@@ -43,12 +43,14 @@ class _BottomNavState extends State<BottomNav> {
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else if (index == 1) {
         Navigator.pushReplacementNamed(context, '/movie');
-      }
+      } 
     } else if (role == "user") {
       if (index == 0) {
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else if (index == 1) {
         Navigator.pushReplacementNamed(context, '/pesan');
+      }else if (index == 2) {
+        Navigator.pushReplacementNamed(context, '/history');
       }
     }
   }
@@ -86,6 +88,10 @@ class _BottomNavState extends State<BottomNav> {
                     BottomNavigationBarItem(
                       icon: Icon(Icons.card_giftcard),
                       label: 'Pesan',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.history),
+                      label: 'history',
                     ),
                   ])
             : Text("");

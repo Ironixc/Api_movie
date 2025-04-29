@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:api_insert/models/movie_model.dart';
 import 'package:api_insert/services/movie.dart';
 import 'package:api_insert/widgets/alert.dart';
@@ -46,15 +45,7 @@ class _TambahMovieViewState extends State<TambahMovieView> {
     setState(() => isLoading = true);
 
     if (kIsWeb) {
-      // Untuk Web
-      FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
-      if (result != null) {
-        setState(() {
-          selectedImage = File(result.files.first.name); // Hanya untuk nama file
-          selectedImageBytes = result.files.first.bytes;
-          isLoading = false;
-        });
-      }
+    
     } else {
       // Untuk Mobile & Desktop
       var img = await ImagePicker().pickImage(source: ImageSource.gallery);

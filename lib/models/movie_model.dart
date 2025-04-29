@@ -21,7 +21,7 @@ class MovieModel {
     voteAverage = double.tryParse(parsedJson["voteaverage"].toString()) ?? 0.0;
     overview = parsedJson["overview"];
     posterPath = parsedJson.containsKey("posterpath")
-        ? "${url.BaseUrl}/${parsedJson["posterpath"]}"
-        : "${url.BaseUrl}/${parsedJson["poster_path"]}";
+        ? "${url.ImageUrl}/${parsedJson["posterpath"]}"
+        : "${url.ImageUrl}/${parsedJson["poster_path"]}";
   }
 }
